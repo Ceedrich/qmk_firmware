@@ -14,6 +14,7 @@ enum custom_layers {
 
 enum custom_keycodes {
     FR_EGRV = SAFE_RANGE,
+    FR_AGRV,
 };
 
 // const uint16_t PROGMEM enter_combo[] = {KC_I, KC_O, COMBO_END}
@@ -54,9 +55,7 @@ enum custom_keycodes {
 #define DEAD_EGU ALGR(KC_QUOT)
 
 #define FR_CEDI ALGR(KC_COMM)
-#define FR_AEGU ALGR(KC_A)
 #define FR_EEGU ALGR(KC_E)
-// #define FR_EGRV (in custom_keycodes)
 
 #define DE_AUML ALGR(KC_Q)
 #define DE_UUML ALGR(KC_Y)
@@ -115,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     DEAD_GRV,FR_CEDI, FR_AEGU, FR_EEGU, FR_EGRV, _______,                            _______, KC_LPRN, KC_RPRN, KC_LT,   KC_GT,   _______,
+     DEAD_GRV,FR_CEDI, FR_AGRV, FR_EEGU, FR_EGRV, _______,                            _______, KC_LPRN, KC_RPRN, KC_LT,   KC_GT,   _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      DEAD_EGU,DEAD_UML,DE_AUML, DE_UUML, DE_OUML, _______,                            KC_UNDS,HRM_LBRC,HRM_RBRC,HRM_LCBR,HRM_RCBR, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -176,6 +175,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(ALGR(KC_GRV));
         tap_code(KC_E);
         return false;
+    case FR_AGRV:
+        tap_code16(ALGR(KC_GRV));
+        tap_code(KC_A);
     }
+
     return true;
 };
