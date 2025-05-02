@@ -170,14 +170,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case FR_EGRV:
-        tap_code16(ALGR(KC_GRV));
-        tap_code(KC_E);
-        return false;
-    case FR_AGRV:
-        tap_code16(ALGR(KC_GRV));
-        tap_code(KC_A);
+    if (record->event.pressed) {
+        switch (keycode) {
+            case FR_EGRV:
+                tap_code16(ALGR(KC_GRV));
+                tap_code(KC_E);
+                return false;
+            case FR_AGRV:
+                tap_code16(ALGR(KC_GRV));
+                tap_code(KC_A);
+                return false;
+        }
     }
 
     return true;
