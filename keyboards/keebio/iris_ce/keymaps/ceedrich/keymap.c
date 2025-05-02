@@ -12,6 +12,10 @@ enum custom_layers {
      _FUNCTION
 };
 
+enum custom_keycodes {
+    FR_EGRV = SAFE_RANGE,
+};
+
 // const uint16_t PROGMEM enter_combo[] = {KC_I, KC_O, COMBO_END}
 // const uint16_t PROGMEM backspace_combo[] = {KC_U, KC_I, COMBO_END}
 
@@ -35,8 +39,29 @@ enum custom_layers {
 #define HRM_UP RSFT_T(KC_UP)  // K acts as Shift when held
 #define HRM_RGHT RALT_T(KC_RGHT)  // L acts as Alt when held
 
+// symbol layer
+#define HRM_LBRC RCTL_T(KC_LBRC)
+#define HRM_RBRC RSFT_T(KC_RBRC)
+#define HRM_LCBR RALT_T(KC_LCBR)
+#define HRM_RCBR RGUI_T(KC_RCBR)
+
 // Layer Switches:
 #define LSW_SPC LT(_LAYER1, KC_SPC)
+
+// other language codes
+#define DEAD_UML ALGR(S(KC_QUOT))
+#define DEAD_GRV ALGR(KC_GRV)
+#define DEAD_EGU ALGR(KC_QUOT)
+
+#define FR_CEDI ALGR(KC_COMM)
+#define FR_AEGU ALGR(KC_A)
+#define FR_EEGU ALGR(KC_E)
+// #define FR_EGRV (in custom_keycodes)
+
+#define DE_AUML ALGR(KC_Q)
+#define DE_UUML ALGR(KC_Y)
+#define DE_OUML ALGR(KC_P)
+
 
 
   // [_SYMBOL] = LAYOUT(
@@ -90,16 +115,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______,                            _______, KC_LPRN, KC_RPRN, KC_LT,   KC_GT,   _______,
+     DEAD_GRV,FR_CEDI, FR_AEGU, FR_EEGU, FR_EGRV, _______,                            _______, KC_LPRN, KC_RPRN, KC_LT,   KC_GT,   _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______,                            KC_UNDS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
+     DEAD_EGU,DEAD_UML,DE_AUML, DE_UUML, DE_OUML, _______,                            KC_UNDS,HRM_LBRC,HRM_RBRC,HRM_LCBR,HRM_RCBR, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     _______, _______, _______,                   _______, _______, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
-
 
 
   [_MEDIA] = LAYOUT(
@@ -144,4 +168,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case FR_EGRV:
+        tap_code16(ALGR(KC_GRV));
+        tap_code(KC_E);
+        return false;
+    }
+    return true;
 };
